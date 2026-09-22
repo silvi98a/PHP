@@ -15,10 +15,20 @@ $sec = decbin((int) $var2);
 $ter = decbin((int) $var3);
 $cuar = decbin((int) $var4);
 
-print("IP " . $ip1 . " en binario es " . $prim . $sec . $ter . $cuar);
+print("IP " . $ip1 . " en binario es " . $prim . $sec . $ter . $cuar . "<br>");
 
+#Otra manera de hacerlo con la función explode()
+$porPartes = explode(".", $ip1); //explode separa por puntos
+$parte0 = $porPartes[0];
+$parte1 = $porPartes[1];
+$parte2 = $porPartes[2];
+$parte3 = $porPartes[3];
 
+printf("IP " . $ip1 . " en binario es: %b.%b.%b.%b", $parte0, $parte1, $parte2, $parte3);
+//lo que hace es que yo le paso en qué formato quiero que lo ponga y, después, con $asigno QUÉ quiero que me formatee.
 
+// Si quisiera que no salgan los puntos entre los números binarios, en vez de poner los . entre las
+// %b%b%b%b
 ?>
 </BODY>
 </HTML>
