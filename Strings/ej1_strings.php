@@ -27,8 +27,8 @@ $parte3 = $porPartes[3];
 printf("IP " . $ip1 . " en binario es: %b.%b.%b.%b", $parte0, $parte1, $parte2, $parte3);
 //lo que hace es que yo le paso en qué formato quiero que lo ponga y, después, con $asigno QUÉ quiero que me formatee.
 
-// Si quisiera que no salgan los puntos entre los números binarios, en vez de poner los . entre las
-// %b%b%b%b
+// Si quisiera que no salgan los puntos entre los números binarios, en vez de poner los . entre las %b, lo dejaría
+// sin puntos, así -> %b%b%b%b
 ?>
 </BODY>
 </HTML>
