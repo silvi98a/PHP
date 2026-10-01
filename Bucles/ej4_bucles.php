@@ -3,7 +3,9 @@
 <BODY>
 <?php
  $num = 17;
+?>
 
+<?php
     print("Número analizado: $num <br>");
 
     for ($i=2; $i<$num; $i++) //el contador empieza en 2 hasta el <17.

@@ -11,7 +11,7 @@
  $multiplos3 = 0;
  $suma = 0;
 
- for($i=$inicio; $i<=$fin; $i++) // desde que i = 1 hasta que i sea = 100
+ for($i = $inicio; $i <= $fin; $i++) // desde que i = 1 hasta que i sea = 100
  {                                    // que i avance 1.
  
     $cantidad++; //acumulo en cantidades CUÁNTOS números habrá.
