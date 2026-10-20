@@ -1,0 +1,29 @@
+<HTML>
+<HEAD> <TITLE> FORMULARIO BASE </TITLE>
+</HEAD>
+<BODY>
+
+<form name='facturas' action='facturas.php' method='post'>
+
+    Número Factura:
+    <input type='text' name='factura' value='' size=15><br>
+
+    Proveedor:
+    <input type='text' name='proveedor' value='' size=15><br>
+
+    Importe:
+    <input type='text' name='importe' value='' size=15><br>
+
+    IVA:
+    <br>
+    <input type='radio' name='iva' value='10'>10%</br>
+    <input type='radio' checked name='iva' value='21'>21%</br>
+
+
+    <input type="submit" value="Alta Factura"> <!--el submit en cuanto lo pinchamos, nos lleva al action-->
+
+    <input type="reset" value="Borrar">
+
+</FORM>
+</BODY>
+</HTML>
