@@ -1,7 +1,7 @@
 <HTML>
 
 <HEAD>
-    <TITLE> fichero1 </TITLE>
+    <TITLE> Fichero 1 </TITLE>
 </HEAD>
 
 <BODY>
