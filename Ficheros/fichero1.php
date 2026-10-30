@@ -45,11 +45,19 @@ function funcion_limpiar($data) {
     return $data;
 }
 
+/* CAMBIADA ESTA FUNCIÓN
 function comprobar_obligatorios($nombre, $apellido1, $apellido2, $fecha, $localidad) {
     if ($nombre == "" || $apellido1 == "" || $apellido2 == "" || $fecha == "" || $localidad == "") {
         return false; //si está vacio, devuelve un false
     }
     return true; //si se ha rellenado los campos, devuelve un true
+*/  
+//CAMBIADO A ESTE CON IS_NULL
+function comprobar_obligatorios($nombre, $apellido1, $apellido2, $fecha, $localidad) {
+    if (is_null($nombre) || is_null($apellido1) || is_null($apellido2) || is_null($fecha) || is_null($localidad)) {
+        return false;
+    }
+    return true;
 }
 
 function ajustar($texto, $longitud) {

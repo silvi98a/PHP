@@ -7,9 +7,9 @@
 <BODY>
 
     <h2> Datos del alumno </h2>
-    Guardar datos de alumnos en fichero de texto (con campos de longitud fija)
+    Guardar datos de alumnos en fichero de texto (con delimitadores ##)
 
-    <form name='fichero1' action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method='post'>
+    <form name='fichero2' action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method='post'>
 
         Nombre: *
         <input type='text' name='nombre' value='' size=15><br>
@@ -26,7 +26,7 @@
         Localidad: *
         <input type='text' name='localidad' value='' size=15><br>
 
-        <input type="submit" value="Guardar alumno"> <!--el submit en cuanto lo pinchamos, nos lleva al action-->
+        <input type="submit" value="Guardar alumno">
 
         <input type="reset" value="Limpiar">
 
@@ -38,25 +38,7 @@
 
 <?php
 
-function funcion_limpiar($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-
-function comprobar_obligatorios($nombre, $apellido1, $apellido2, $fecha, $localidad) {
-    if ($nombre == "" || $apellido1 == "" || $apellido2 == "" || $fecha == "" || $localidad == "") {
-        return false; //si está vacio, devuelve un false
-    }
-    return true; //si se ha rellenado los campos, devuelve un true
-}
-
-//Lo único que cambia comparándolo con el ejercicio anterior
-function guardar_alumno($nombre, $apellido1, $apellido2, $fecha, $localidad) {
-    $linea = implode('##', [$nombre, $apellido1, $apellido2, $fecha, $localidad]);
-    file_put_contents(__DIR__ . "/../files/alumnos2.txt", $linea . "\n", FILE_APPEND);
-}
+require_once 'funciones.php'; // carga las funciones
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -69,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $localidad = funcion_limpiar($_POST['localidad']);
 
     if (comprobar_obligatorios($nombre, $apellido1, $apellido2, $fecha, $localidad)) {
-        $fecha = date("d/m/Y", strtotime($fecha)); //lo que hace strtotime con "2008-03-15" es coger el texto de la fecha, lo convierte a número y date ("d/m/Y") lo coloca como fecha "15/03/2008"
+        $fecha = date("d/m/Y", strtotime($fecha));
         guardar_alumno($nombre, $apellido1, $apellido2, $fecha, $localidad);
         echo "Alumno guardado correctamente";
     } else {
@@ -77,3 +59,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
+
+<!--
+HECHO
+is_empty
+is_null
+comprobar_obligatorios
+
+
+
+f_ride -> leer ficheros ver diferencia file_put_content
+
+
+HECHO
+meter # entre los elementos-->
+
+
