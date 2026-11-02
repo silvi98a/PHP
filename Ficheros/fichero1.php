@@ -71,7 +71,7 @@ function guardar_alumno($nombre, $apellido1, $apellido2, $fecha, $localidad) {
     $linea .= ajustar($fecha, 10); //posición 124 a 133 -> 133-124+1 = 10
     $linea .= ajustar($localidad, 27); //posición 134 a 160 -> 160-134+1 = 27
     //el .= es como el += pero con texto.
-    file_put_contents(__DIR__ . "/../files/alumnos1.txt", $linea . "\n", FILE_APPEND);
+    file_put_contents("/../files/alumnos1.txt", $linea . "\n", FILE_APPEND);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

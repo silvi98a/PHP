@@ -37,5 +37,11 @@ function ajustar($texto, $longitud) {
     return str_pad($texto, $longitud); //str_pad rellena con espacios por defecto
 }
 
+function leer_fichero($nomFichero) {
+    $f = fopen($nomFichero, "r"); //abrir el fichero. "r" es solo lectura
+    $contenido = fread($f, filesize($nomFichero));
+    fclose($f); //cerrar el fichero
+    return $contenido;
+}
 ?>
 
