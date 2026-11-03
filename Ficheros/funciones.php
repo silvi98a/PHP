@@ -43,5 +43,8 @@ function leer_fichero($nomFichero) {
     fclose($f); //cerrar el fichero
     return $contenido;
 }
-?>
 
+function existe_fichero($ruta) {
+    return file_exists($ruta);
+}
+?>

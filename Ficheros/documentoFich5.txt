@@ -1,0 +1,5 @@
+Hola mundo
+Operaciones con ficheros
+Ejemplo de PHP
+Lectura de archivos
+Fin del fichero
