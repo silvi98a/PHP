@@ -6,7 +6,7 @@
 
 <BODY>
 
-    <form name='operaciones' action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method='post'>
+    <FORM name='operaciones' action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method='post'>
 
         Fichero (Ruta/nombre): *
         <br>
@@ -14,7 +14,7 @@
 
         Operaciones:
         <br>
-        <input type='radio' name="operacion" value='mostrarFichero' checked>Mostrar fichero</br>
+        <input type='radio' name="operacion" value='mostrarFichero' checked>Mostrar fichero<br>
 
         <input type='radio' name="operacion" value='mostrarLinea'>Mostrar línea
         <input type="number" name="linea" min="1" max="5" value="1"><br>
@@ -31,8 +31,8 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $ruta = $_POST['ruta'];
-        $operacion = $_POST['operacion'];
+        $ruta = funcion_limpiar($_POST['ruta']);
+        $operacion = funcion_limpiar($_POST['operacion']);
 
         if (!existe_fichero($ruta)) {
             echo "<p>Error: el fichero no existe.</p>";
@@ -44,23 +44,23 @@
 
             if ($operacion == "mostrarFichero") {
                 for ($i = 0; $i < $total; $i++) {
-                    echo "Línea " . ($i + 1) . ": " . $lineas[$i] . "<br>";
+                    echo "Línea " . ($i + 1) . ": " . funcion_limpiar($lineas[$i]) . "<br>";
                 }
             }
 
             if ($operacion == "mostrarLinea") {
-                $n = $_POST['linea']; //coge el número que le haya puesto en ese apartado del formulario
+                $n = funcion_limpiar($_POST['linea']); //coge el número que le haya puesto en ese apartado del formulario
                 if ($n <= $total) {
-                    echo "Línea $n: " . $lineas[$n - 1];
+                    echo "Línea $n: " . funcion_limpiar($lineas[$n - 1]);
                 } else {
                     echo "Error: el fichero no tiene la línea $n.";
                 }
             }
 
             if ($operacion == "mostrarN") {
-                $n = $_POST['lineas'];//coge el número que le haya puesto en ese apartado del formulario
+                $n = funcion_limpiar($_POST['linea']); //coge el número que le haya puesto en ese apartado del formulario
                 for ($i = 0; $i < $n && $i < $total; $i++) {
-                    echo "Línea " . ($i + 1) . ": " . $lineas[$i] . "<br>";
+                    echo "Línea " . ($i + 1) . ": " . funcion_limpiar($lineas[$i]) . "<br>";
                 }
             }
         }
