@@ -32,7 +32,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $ruta = funcion_limpiar($_POST['ruta']);
-        $operacion = funcion_limpiar($_POST['operacion']);
+        $operacion = $_POST['operacion'];
 
         if (!existe_fichero($ruta)) {
             echo "<p>Error: el fichero no existe.</p>";
@@ -58,7 +58,7 @@
             }
 
             if ($operacion == "mostrarN") {
-                $n = funcion_limpiar($_POST['linea']); //coge el número que le haya puesto en ese apartado del formulario
+                $n = funcion_limpiar($_POST['lineas']); //coge el número que le haya puesto en ese apartado del formulario
                 for ($i = 0; $i < $n && $i < $total; $i++) {
                     echo "Línea " . ($i + 1) . ": " . funcion_limpiar($lineas[$i]) . "<br>";
                 }
