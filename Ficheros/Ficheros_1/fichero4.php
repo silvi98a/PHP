@@ -10,10 +10,10 @@
     </tr>
 
     <?php
-    require_once 'funciones.php';
+    require_once '../funciones.php';
 
     $contador = 0;
-    $contenido = leer_fichero("/../files/alumnos2.txt");
+    $contenido = leer_fichero("../../files/alumnos2.txt");
     $lineas = explode("\n", $contenido); 
     // trocea el texto por cada salto de línea (\n) y guarda cada trozo en el array $lineas (una posición por alumno)
 

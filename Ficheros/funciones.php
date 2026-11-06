@@ -30,8 +30,8 @@ function guardar_alumno($nombre, $apellido1, $apellido2, $fecha, $localidad) {
 }
 */ //MEJOR DE LA SIGUIENTE MANERA SIN ARRAU DE POR MEDIO
 function guardar_alumno($nombre, $apellido1, $apellido2, $fecha, $localidad) {
-    $linea = $nombre . '#' . $apellido1 . '#' . $apellido2 . '#' . $fecha . '#' . $localidad;
-    file_put_contents("/../files/alumnos2.txt", $linea . "\n", FILE_APPEND);
+    $linea = $nombre . '##' . $apellido1 . '##' . $apellido2 . '##' . $fecha . '##' . $localidad;
+    file_put_contents("../files/alumnos2.txt", $linea . "\n", FILE_APPEND);
 }
 
 function ajustar($texto, $longitud) {

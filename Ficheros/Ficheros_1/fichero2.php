@@ -38,7 +38,7 @@
 
 <?php
 
-require_once 'funciones.php'; // carga las funciones
+require_once '../funciones.php'; // carga las funciones
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 

@@ -10,7 +10,7 @@
     </tr>
 
     <?php
-    require_once 'funciones.php';
+    require_once '../funciones.php';
 
     $contador = 0;
     $contenido = leer_fichero("/../files/alumnos1.txt");
