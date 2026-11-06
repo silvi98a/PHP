@@ -38,7 +38,8 @@
 
 <?php
 
-function funcion_limpiar($data) {
+function funcion_limpiar($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -51,27 +52,44 @@ function comprobar_obligatorios($nombre, $apellido1, $apellido2, $fecha, $locali
         return false; //si está vacio, devuelve un false
     }
     return true; //si se ha rellenado los campos, devuelve un true
-*/  
-//CAMBIADO A ESTE CON IS_NULL
-function comprobar_obligatorios($nombre, $apellido1, $apellido2, $fecha, $localidad) {
-    if (is_null($nombre) || is_null($apellido1) || is_null($apellido2) || is_null($fecha) || is_null($localidad)) {
+*/
+//CAMBIADO A ESTE CON EMPTY
+function comprobar_obligatorios($nombre, $apellido1, $apellido2, $fecha, $localidad)
+{
+    if (empty($nombre) || empty($apellido1) || empty($apellido2) || empty($fecha) || empty($localidad)) {
         return false;
     }
     return true;
 }
 
-function ajustar($texto, $longitud) {
+function ajustar($texto, $longitud)
+{
     return str_pad($texto, $longitud); //str_pad rellena con espacios por defecto
 }
 
-function guardar_alumno($nombre, $apellido1, $apellido2, $fecha, $localidad) {
+function guardar_alumno($nombre, $apellido1, $apellido2, $fecha, $localidad)
+{
     $linea = ajustar($nombre, 40); //posición 1 a 40 -> 40-1+1 = 40
     $linea .= ajustar($apellido1, 41); //posición 41 a 81 -> 81-41+1 = 41
     $linea .= ajustar($apellido2, 42); //posición 82 a 123 -> 123-82+1 = 42
     $linea .= ajustar($fecha, 10); //posición 124 a 133 -> 133-124+1 = 10
     $linea .= ajustar($localidad, 27); //posición 134 a 160 -> 160-134+1 = 27
     //el .= es como el += pero con texto.
-    file_put_contents("/../files/alumnos1.txt", $linea . "\n", FILE_APPEND);
+    // ESTO YA NO file_put_contents("/../files/alumnos1.txt", $linea . "\n", FILE_APPEND);
+    $ruta_fichero = "/../files/alumnos1.txt"; // Es recomendable usar __DIR__ para rutas relativas seguras
+
+    // 1. Abrir el archivo en modo "a" (append / añadir al final)
+    $fichero = fopen($ruta_fichero, "a");
+
+    if ($fichero) {
+        // 2. Escribir los datos en el archivo
+        fwrite($fichero, $linea . "\n");
+
+        // 3. Cerrar el archivo
+        fclose($fichero);
+    } else {
+        echo "Error al abrir el fichero para lectura/escritura.";
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

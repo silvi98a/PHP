@@ -15,7 +15,8 @@ function comprobar_obligatorios($nombre, $apellido1, $apellido2, $fecha, $locali
     return true;
 }
 */ //MEJOR HACERLO DE LA SIGUIENTE MANERA o CON (IS_NULL($NOMBRE) .... RETURN FALSE, SINO, RETURN TRUE
-function comprobar_obligatorios($nombre, $apellido1, $apellido2, $fecha, $localidad) {
+function comprobar_obligatorios($nombre, $apellido1, $apellido2, $fecha, $localidad)
+{
     if (empty($nombre) || empty($apellido1) || empty($apellido2) || empty($fecha) || empty($localidad)) {
         return false;
     }
