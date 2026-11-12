@@ -1,6 +1,6 @@
 <?php
 
-function funcion_limpiar($data) {
+function funcion_limpiar($data) { // Evitar inyección de código
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
