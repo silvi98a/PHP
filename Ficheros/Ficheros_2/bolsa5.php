@@ -1,21 +1,20 @@
 <?php
 require_once '../funciones_bolsa.php';
+set_error_handler("customError"); //manejador de errores
 
-$lineas = explode("\n", leer_fichero('../../files/ibex35.txt'));
+$fichero = leerFicheroMejorado('../../files/ibex35.txt', " ");
+array_shift($fichero); // quito la cabecera del .txt
+
 $capitalizacion = 0;
 $volumen = 0;
 
-for ($n = 1; $n < count($lineas); $n++) {
-    $linea = trim($lineas[$n]);
+foreach ($fichero as $campos) { // cada $campos es una línea ya separada por " "
 
-    if ($linea != "") {
-        while (strpos($linea, "  ") !== false) {
-            $linea = str_replace("  ", " ", $linea);
-        }
+    // si la línea tenía espacios dobles, explode deja campos vacíos: los quito
+    $campos = array_values(array_filter($campos, 'strlen'));
+    $total = count($campos);
 
-        $campos = explode(" ", $linea);
-        $total = count($campos);
-
+    if ($total > 0) {
         //quito los puntos de los miles (4.264 pasa a 4264) para poder sumarlos como números.
         //la capitalización es el penúltimo campo y el volumen el antepenúltimo
         $capitalizacion += str_replace(".", "", $campos[$total - 2]);

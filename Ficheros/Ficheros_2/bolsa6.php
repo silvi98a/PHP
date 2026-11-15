@@ -1,24 +1,22 @@
 <?php
 require_once '../funciones_bolsa.php';
+set_error_handler("customError"); //manejador de errores
 
-$lineas = explode("\n", leer_fichero('../../files/ibex35.txt'));
+$fichero = leerFicheroMejorado('../../files/ibex35.txt', " ");
+array_shift($fichero); // quito la cabecera del .txt
 
 $maximos = array();
 $minimos = array();
 $volumenes = array();
 $capitalizaciones = array();
 
-for ($n = 1; $n < count($lineas); $n++) {
-    $linea = trim($lineas[$n]);
+foreach ($fichero as $campos) { // cada $campos es una línea ya separada por " "
 
-    if ($linea != "") {
-        while (strpos($linea, "  ") !== false) {
-            $linea = str_replace("  ", " ", $linea);
-        }
+    // si la línea tenía espacios dobles, explode deja campos vacíos: los quito
+    $campos = array_values(array_filter($campos, 'strlen'));
+    $total = count($campos);
 
-        $campos = explode(" ", $linea);
-        $total = count($campos);
-
+    if ($total > 0) {
         $valor = "";
         for ($i = 0; $i < $total - 9; $i++) {
             $valor = $valor . $campos[$i] . " ";

@@ -2,23 +2,19 @@
 require_once '../funciones_bolsa.php';
 set_error_handler("customError"); //manejador de errores
 
-$fichero = leer_fichero('../../files/ibex35.txt');
-$lineas = explode("\n", $fichero);
+$fichero = leerFicheroMejorado('../../files/ibex35.txt', " ");
+array_shift($fichero); // quito la cabecera del .txt
 
 $nombres = array(); // lista de nombres para el desplegable
 $datos = array();   // para cada nombre: sus 8 datos
 
-for ($n = 1; $n < count($lineas); $n++) {
-    $linea = trim($lineas[$n]);
+foreach ($fichero as $campos) { // cada $campos es una línea ya separada por " "
 
-    if ($linea != "") {
-        while (strpos($linea, "  ") !== false) {
-            $linea = str_replace("  ", " ", $linea);
-        }
+    // si la línea tenía espacios dobles, explode deja campos vacíos: los quito
+    $campos = array_values(array_filter($campos, 'strlen'));
+    $total = count($campos);
 
-        $campos = explode(" ", $linea);
-        $total = count($campos);
-
+    if ($total > 0) {
         $valor = "";
         for ($i = 0; $i < $total - 9; $i++) {
             $valor = $valor . $campos[$i] . " ";
@@ -35,7 +31,6 @@ for ($n = 1; $n < count($lineas); $n++) {
 // nombres de los campos, en el mismo orden que los datos
 $etiquetas = array("Último", "Variación %", "Variación", "Ac. % año", "Máximo", "Mínimo", "Volumen", "Capitalización");
 ?>
-
 <HTML>
 
 <HEAD>

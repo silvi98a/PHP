@@ -2,23 +2,19 @@
 require_once '../funciones_bolsa.php';
 set_error_handler("customError"); //manejador de errores
 
-$fichero = leer_fichero('../../files/ibex35.txt');
-$lineas = explode("\n", $fichero);
+$fichero = leerFicheroMejorado('../../files/ibex35.txt', " ");
+array_shift($fichero); // quito la cabecera del .txt
 
 $nombres = array(); // lista de nombres para el desplegable
 $datos = array();   // para cada nombre: último, máximo y mínimo
 
-for ($n = 1; $n < count($lineas); $n++) {
-    $linea = trim($lineas[$n]);
+foreach ($fichero as $campos) { // cada $campos es una línea ya separada por " "
 
-    if ($linea != "") {
-        while (strpos($linea, "  ") !== false) {
-            $linea = str_replace("  ", " ", $linea);
-        }
+    // si la línea tenía espacios dobles, explode deja campos vacíos: los quito
+    $campos = array_values(array_filter($campos, 'strlen'));
+    $total = count($campos);
 
-        $campos = explode(" ", $linea);
-        $total = count($campos);
-
+    if ($total > 0) {
         $valor = "";
         for ($i = 0; $i < $total - 9; $i++) {
             $valor = $valor . $campos[$i] . " ";
@@ -28,7 +24,7 @@ for ($n = 1; $n < count($lineas); $n++) {
         $inicio_datos = $total - 9;
         $nombres[] = $valor;
         $datos[$valor] = array($campos[$inicio_datos], $campos[$inicio_datos + 4], $campos[$inicio_datos + 5]);
-                                 // $inicio_datos tiene: Último (+0), Máximo (+4) y Mínimo (+5).
+        // Último (+0), Máximo (+4) y Mínimo (+5)
     }
 }
 ?>
@@ -61,14 +57,20 @@ for ($n = 1; $n < count($lineas); $n++) {
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombre = funcion_limpiar($_POST['nombre']);
+        $encontrado = false;
 
-        if (isset($datos[$nombre])) {
-            echo "<h3>Resultado</h3>";
-            echo "Cotización de $nombre es " . $datos[$nombre][0] . "<br>";
-            echo "Cotización Máxima de $nombre es " . $datos[$nombre][1] . "<br>";
-            echo "Cotización Mínima de $nombre es " . $datos[$nombre][2] . "<br>";
-        } else {
-            echo "<p>Error: el valor no existe.</p>";
+        foreach ($datos as $valor => $cotizaciones) { //datos es el array que recorro. $valor guarda la clave (nombre empresa) y $cotizaciones guarda el contenido de la posición (que es otro array con los tres datos (Último, Máximo y Mínimo))
+            if ($valor == $nombre) { // comparo el nombre del fichero con el del formulario
+                $encontrado = true;
+                echo "<h3>Resultado</h3>";
+                echo "Cotización de $nombre es " . $cotizaciones[0] . "<br>";
+                echo "Cotización Máxima de $nombre es " . $cotizaciones[1] . "<br>";
+                echo "Cotización Mínima de $nombre es " . $cotizaciones[2] . "<br>";
+            }
+        }
+
+        if (!$encontrado) {
+            trigger_error("El valor que busca usted, NO existe.");
         }
     }
     ?>

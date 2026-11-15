@@ -11,8 +11,28 @@ function leer_fichero($nomFichero) {
     return $contenido;
 }
 
+// Lee un fichero y devuelve un array asociativo [clave => valor]
+function leerFicheroMejorado($ruta, $separador) {
+    $lineas = file($ruta);
+    $datos = [];
+
+    foreach ($lineas as $linea) {
+        $partes = explode($separador, trim($linea));
+        $datos[$partes[0]] = $partes;
+    }
+
+    return $datos;
+}
+
 function customError($errno, $errstr) { //función de errores
-  echo "<b>Error:</b> $errstr";
+    if ($errno==1024) {
+        echo "<b>Aplicación Bolsa:</b> El fichero no se ha podido cargar";
+    } elseif ($errno==512) {
+        echo"<b>Aplicación Bolsa: </b> El valor que busca, no existe";
+    } else {
+        echo "Error: $errno - $errstr";
+    }
+    return true;
 }
 
 function funcion_limpiar($data) { // Evitar inyección de código
@@ -23,4 +43,9 @@ function funcion_limpiar($data) { // Evitar inyección de código
 }
 
 ?>
+
+
+
+<!-- PHP file() lee el fichero y lo mete en aray asociativos para recorrer con foreach. -->
+
 
