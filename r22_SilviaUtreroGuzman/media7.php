@@ -3,17 +3,15 @@ include 'media7fun.php'; //importo las funciones
 set_error_handler('customError'); //por si hay errores.
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $numCartas = $_POST["cartas"];
-    $apuesta = $_POST["apuesta"];
-
-    $jugadores = crearJugadores($_POST);
+    $numCartas = $_POST["cartas"];//recojo el campo "cartas" del formulario (cartas por jugador)
+    $apuesta = $_POST["apuesta"]; //recojo el campo "apuesta" del formulario (importe de la ronda)
+    
+    $jugadores = crearJugadores($_POST); // paso todo $_POST porque la función necesita los 4 campos de nombre (jugador1...jugador4)
     $baraja = crearBaraja();
     $manos = repartirCartas($jugadores, $baraja, $numCartas);
 }
 
 ?>
-
-
 
 
 <!doctype html>
