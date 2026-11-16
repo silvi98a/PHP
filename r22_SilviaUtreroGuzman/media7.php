@@ -1,14 +1,14 @@
 <?php
-include 'media7fun.php';
-
+include 'media7fun.php'; //importo las funciones
+set_error_handler('customError'); //por si hay errores.
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $numCartas = $_POST["cartas"];
+    $apuesta = $_POST["apuesta"];
 
-    $jugadores = [];
-    $manos = [];
-    $puntuaciones = [];
-
-    
+    $jugadores = crearJugadores($_POST);
+    $baraja = crearBaraja();
+    $manos = repartirCartas($jugadores, $baraja, $numCartas);
 }
 
 ?>
