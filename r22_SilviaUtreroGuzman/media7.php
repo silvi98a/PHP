@@ -9,6 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $jugadores = crearJugadores($_POST); // paso todo $_POST porque la función necesita los 4 campos de nombre (jugador1...jugador4)
     $baraja = crearBaraja();
     $manos = repartirCartas($jugadores, $baraja, $numCartas);
+
+    $puntuaciones = calcularPuntuaciones($manos);
+    $ganadores = obtenerGanadores($puntuaciones);
+    $premios = calcularPremios($puntuaciones, $ganadores, $apuesta);
+
+    $nombreFichero = crearFichero($jugadores, $puntuaciones, $premios, $ganadores);
 }
 
 ?>
