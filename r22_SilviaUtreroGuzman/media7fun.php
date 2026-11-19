@@ -139,7 +139,7 @@ function calcularPremios($puntuaciones, $ganadores, $apuesta) { // calculo el pr
 }
 
 
-function iniciales($nombre) { // saco las iniciales de "Nombre Apellido"
+function iniciales($nombre) { // saco las iniciales del nombre y apellido
     $iniciales = ""; // meto las letras
     foreach (explode(" ", $nombre) as $palabra) { //separo el nombre por espacio
         $iniciales .= strtoupper(substr($palabra, 0, 1));  //stroupper pasa a mayúscula
@@ -149,10 +149,10 @@ function iniciales($nombre) { // saco las iniciales de "Nombre Apellido"
 
 function crearFichero($jugadores, $puntuaciones, $premios, $ganadores) {
     $nombreFichero = "apuestas_" . date("dmyHis") . ".txt"; // nombre con día, mes, año, hora, minutos y segundos
-    $fichero = fopen($nombreFichero, "w"); // abro (y creo) el fichero para escribir
+    $fichero = fopen($nombreFichero, "w"); // abro y creo el fichero para escribir
 
-    foreach ($jugadores as $i => $nombre) { // una línea por jugador
-        fwrite($fichero, $nombre . "#" . $puntuaciones[$i] . "#" . $premios[$i] . "\n"); // nombre#puntos#premio
+    foreach ($jugadores as $i => $nombre) { //una línea por jugador
+        fwrite($fichero, iniciales($nombre) . "#" . $puntuaciones[$i] . "#" . $premios[$i] . "\n"); // nombre#puntos#premio
     }
 
     fwrite($fichero, "TOTAL PREMIOS#" . count($ganadores) . "#" . array_sum($premios)); // última línea con el resumen

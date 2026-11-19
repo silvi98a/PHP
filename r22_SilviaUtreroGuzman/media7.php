@@ -5,7 +5,7 @@ set_error_handler('customError'); //por si hay errores.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $numCartas = $_POST["cartas"];//recojo el campo "cartas" del formulario (cartas por jugador)
     $apuesta = $_POST["apuesta"]; //recojo el campo "apuesta" del formulario (importe de la ronda)
-    
+
     $jugadores = crearJugadores($_POST); // paso todo $_POST porque la función necesita los 4 campos de nombre (jugador1...jugador4)
     $baraja = crearBaraja();
     $manos = repartirCartas($jugadores, $baraja, $numCartas);
@@ -201,9 +201,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <section class="panel">
 
             <h2>Cartas y puntuaciones</h2>
+            <?php
+            echo "<table class='score'>"; //abro la tabla concomillas simples dentro para no cerrar el echo
+            echo "<tr><th>Jugador</th><th>Cartas</th><th>Puntos</th><th>Premio</th></tr>"; // fila de cabecera, se escribe una sola vez
+            
+            foreach ($jugadores as $i => $nombre) { // una fila por jugador ($i es su posición: 0, 1, 2, 3)
+                echo "<tr>"; // abro la fila del jugador
+                echo "<td>$nombre</td>"; // celda con su nombre
+            
+                echo "<td>"; // abro la celda de las cartas fuera del foreach, para que sea una sola celda
+                foreach ($manos[$i] as $carta) { //recorro las cartas de la mano de ese jugador
+                    echo $carta["valor"] . $carta["tipo"] . " "; // valor + tipo + espacio, por ejemplo "7C "
+                }
+                echo "</td>"; // cierro la celda de las cartas
+            
+                echo "<td>{$puntuaciones[$i]}</td>"; // sus puntos (las llaves son necesarias al usar un array dentro de comillas dobles)
+                echo "<td>{$premios[$i]} €</td>"; //su premio (0 si no ha ganado)
+                echo "</tr>"; //cierro la fila y pasa al siguiente jugador
+            }
+            echo "</table>"; //cierro la tabla pero fuera del bucle, una sola vez
+            
+            if (count($ganadores) > 0) { //si hay algún ganador
+                foreach ($ganadores as $i) { //recorro los ganadores (guarda posiciones, por eso $i y no $nombre)
+                    echo "<p>Ganador: {$jugadores[$i]} con {$puntuaciones[$i]} puntos. Premio: {$premios[$i]} €</p>"; // con su posición saco nombre, puntos y premio
+                }
+            } else { //si todos se han pasado de 7.5
+                echo "<p>No hay ganador. El importe de $apuesta € se convierte en bote.</p>"; // la apuesta pasa a ser bote
+            }
+            ?>
 
             <h2 style="margin-top:25px">Fichero generado</h2>
-
+            <?php
+            echo "<p>$nombreFichero</p>"; // nombre del fichero que devuelve crearFichero
+            echo "<pre>" . file_get_contents($nombreFichero) . "</pre>"; // leo el fichero y lo muestro. el <pre> lo que hace es enseñar el texto tal cual está escrito (con sus saltos de línea y los espacios)
+            ?> 
 
             <p style="margin-top:22px"><a class="back" href="media7.html">← Volver al formulario</a></p>
         </section>
