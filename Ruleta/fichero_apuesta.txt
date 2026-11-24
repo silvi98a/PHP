@@ -1,0 +1,3 @@
+20312##silv##0,3,6,7,10$impar$pasa$negro$##200##
+20312##silv##0,2,3,6,7,10$impar$pasa$negro$##200##
+20312##silv##2,5,8,10$impar$falta$rojo$##200##
